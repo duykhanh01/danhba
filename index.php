@@ -4,7 +4,7 @@
 session_start();
 
 include('config/db_connect.php');
-$sql = "SELECT * FROM db_nhanvien";
+$sql = "SELECT * FROM db_nhanvien, db_donvi where db_nhanvien.madv = db_donvi.madv";
 $res = mysqli_query($conn, $sql);
 
 $phoneBooks = mysqli_fetch_all($res, MYSQLI_ASSOC);
@@ -19,7 +19,6 @@ $phoneBooks = mysqli_fetch_all($res, MYSQLI_ASSOC);
 
 <div class="main">
 	<div class="container">
-		<?php echo $_SESSION['userName']; ?>
 		<div class="row">
 			<div class="col-3 bg-light">
 				<div class="treeview-animated mr-4 my-4">
@@ -65,7 +64,7 @@ $phoneBooks = mysqli_fetch_all($res, MYSQLI_ASSOC);
 								<tr>
 									<th scope="row"><?php echo $phoneBook['manv']; ?></th>
 									<td><?php echo $phoneBook['tennv']; ?></td>
-									<td><?php echo $phoneBook['madv']; ?></td>
+									<td><?php echo $phoneBook['tendv']; ?></td>
 									<td><?php echo $phoneBook['chucvu']; ?></td>
 									<td><?php echo $phoneBook['sodidong']; ?></td>
 									<td><?php echo $phoneBook['email']; ?></td>
