@@ -24,6 +24,16 @@ text-decoration: none;
 
 }
 
+.form-add{
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.table{
+    box-shadow:  0 20px 0 #ccc
+}
+
 .treeview.w-20 {
     width: 20rem
 }

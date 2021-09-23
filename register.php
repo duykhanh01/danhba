@@ -90,7 +90,6 @@ if (isset($_POST['submit'])) {
             <input type="password" value="<?php echo htmlspecialchars($cpass) ?>" name="cpassword" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
         </div>
         <div><?php echo $errors['cpass']; ?></div>
-
         <button name="submit" type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

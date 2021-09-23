@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
             $row = mysqli_fetch_assoc($res);
             $_SESSION['userName'] = $row['tendangnhap'];
             $_SESSION['email'] = $row['email'];
-            header('Location: index.php');
+            header('Location: admin.php');
         } else {
             echo $errors['all'] = "Tên đăng nhập hoặc mật khẩu không chính xác";
             $userName = $password  = "";
