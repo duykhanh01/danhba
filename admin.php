@@ -113,7 +113,7 @@ if (isset($_GET['filter_staffs'])) {
                     <?php if (isset($_GET['filter_staffs']) or $_GET['name'] == "nguoi-dung") : ?>
 
 
-                        <a href="add.php" class="btn btn-success mt-2">Thêm danh bạ người dùng</a>
+                        <a href="addStaff.php" class="btn btn-success mt-2">Thêm danh bạ người dùng</a>
                         <table class="table table-striped table-hover my-3">
                             <thead>
                                 <tr>
@@ -139,9 +139,8 @@ if (isset($_GET['filter_staffs'])) {
                                         <td><?php echo $phoneBook['chucvu']; ?></td>
                                         <td><?php echo $phoneBook['sodidong']; ?></td>
                                         <td><?php echo $phoneBook['email']; ?></td>
-                                        <td><a class="text-primary" href=""><i class="fas fa-edit "></i></a></td>
-                                        <td><a class="text-danger" href=""><i class="fas fa-trash"></i></a></td>
-
+                                        <td><a class="text-primary" href="editStaff.php?id=<?php echo $phoneBook['manv']; ?>"><i class="fas fa-edit "></i></a></td>
+                                        <td><a class="text-danger" href="deleteStaff.php?id=<?php echo $phoneBook['manv']; ?>"><i class="fas fa-trash"></i></a></td>
                                     </tr>
                                 <?php endforeach; ?>
 
@@ -150,7 +149,7 @@ if (isset($_GET['filter_staffs'])) {
 
                         <!-- Hiển thị bảng đơn vị -->
                     <?php elseif ($_GET['name'] === "don-vi") : ?>
-                        <a href="add.php" class="btn btn-success mt-2">Thêm danh bạ đơn vị</a>
+                        <a href="addUnit.php" class="btn btn-success mt-2">Thêm danh bạ đơn vị</a>
                         <table class="table table-striped table-hover my-3">
                             <thead>
                                 <tr>
@@ -172,8 +171,8 @@ if (isset($_GET['filter_staffs'])) {
                                         <td><?php echo $phoneBook['diachi']; ?></td>
                                         <td><?php echo $phoneBook['email']; ?></td>
                                         <td><?php echo $phoneBook['dienthoai']; ?></td>
-                                        <td><a class="text-primary" href=""><i class="fas fa-edit "></i></a></td>
-                                        <td><a class="text-danger" href=""><i class="fas fa-trash"></i></a></td>
+                                        <td><a class="text-primary" href="editUnit.php?id=<?php echo $phoneBook['madv']; ?>"><i class="fas fa-edit "></i></a></td>
+                                        <td><a class="text-danger" href="deleteUnit.php?id=<?php echo $phoneBook['madv']; ?>"><i class="fas fa-trash"></i></a></td>
 
 
                                     </tr>
@@ -186,6 +185,7 @@ if (isset($_GET['filter_staffs'])) {
 
                     <!-- ---------------------------------- -->
                 <?php else : ?>
+                    <a href="addUnit.php" class="btn btn-success mt-2">Thêm danh bạ đơn vị</a>
                     <table class="table table-striped table-hover my-3">
                         <thead>
                             <tr>
@@ -207,8 +207,8 @@ if (isset($_GET['filter_staffs'])) {
                                     <td><?php echo $unit['diachi']; ?></td>
                                     <td><?php echo $unit['email']; ?></td>
                                     <td><?php echo $unit['dienthoai']; ?></td>
-                                    <td><a class="text-primary" href=""><i class="fas fa-edit "></i></a></td>
-                                    <td><a class="text-danger" href=""><i class="fas fa-trash"></i></a></td>
+                                    <td><a class="text-primary" href="editUnit.php?id=<?php echo $unit['madv']; ?>"><i class="fas fa-edit "></i></a></td>
+                                    <td><a class="text-danger" href="deleteUnit.php?id=<?php echo $unit['madv']; ?>"><i class="fas fa-trash"></i></a></td>
 
                                 </tr>
                             <?php endforeach; ?>

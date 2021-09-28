@@ -31,14 +31,19 @@
               <a class="nav-link active" aria-current="page" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="admin.php">Admin</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#">Contact</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">About</a>
             </li>
+            <?php if (isset($_SESSION['userName'])) : ?>
+              <li class="nav-item">
+                <a class="nav-link" href="admin.php">Admin</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="manager.php">Manager Users</a>
+              </li>
+            <?php endif ?>
 
           </ul>
           <form class="d-flex me-auto">

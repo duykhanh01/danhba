@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
             <div><?php echo $errors['all'] ?></div>
             <div class="form-floating">
-                <input type="text" value="<?php echo htmlspecialchars($userName) ?>" name="userName" class=" form-control" id="exampleInputPassword1" placeholder="User Name 124">
+                <input type="text" value="<?php echo htmlspecialchars($userName) ?>" name="userName" class=" form-control" id="exampleInputPassword1" placeholder="User Name">
                 <label>User Name</label>
             </div>
             <div><?php echo $errors['user'] ?></div>
