@@ -2,22 +2,25 @@
 
 include('config/db_connect.php');
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $sql = "SELECT * from db_nguoidung where mand = '$id'";
-    $res = mysqli_query($conn, $sql);
-    $users = mysqli_fetch_assoc($res);
-    print_r($users);
-    $userName = $users['tendangnhap'];
-    $email = $users['email'];
+
+$id = $_GET['id'];
+if (!$id) {
+    header('Location: manager.php');
 }
+$sql = "SELECT * from db_nguoidung where mand = '$id'";
+$res = mysqli_query($conn, $sql);
+$users = mysqli_fetch_assoc($res);
+print_r($users);
+$userName = $users['tendangnhap'];
+$email = $users['email'];
+
 
 
 $pass = $cpass = "";
 
 $errors = array('user' => '', 'pass' => '', 'email' => '', 'cpass' => '', 'all' => '');
 
-if (isset($_POST['submit'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userName  = $email =  '';
     if (empty($_POST['email'])) {
         $errors['email'] = 'An email is required';
@@ -51,7 +54,10 @@ if (isset($_POST['submit'])) {
 
     if (array_filter($errors)) {
     } else {
-        $sql = "UPDATE from db_nguoidung set tendangnhap = $userName, matkhau = $password, email = $email";
+        $sql = "UPDATE db_nguoidung set tendangnhap = '$userName', matkhau = '$pass', email = '$email' where mand = '$id'";
+        $res = mysqli_query($conn, $sql);
+
+        header("Location: manager.php");
     }
 }
 ?>
@@ -62,7 +68,7 @@ if (isset($_POST['submit'])) {
 
 <?php include('templates/header.php'); ?>
 <div class="container">
-    <form class="register" action="register.php" method="post">
+    <form class="register" method="post">
         <div> <?php echo $errors['all'] ?> </div>
         <div class="form-group">
             <label for="exampleInputUsername">Username</label>

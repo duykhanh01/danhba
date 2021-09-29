@@ -40,8 +40,8 @@ if (isset($_POST['submit'])) {
     } else {
         $query = "SELECT * FROM db_nguoidung WHERE email = '$email' and matkhau = '$pass'";
         $res = mysqli_query($conn, $query);
+
         $user = mysqli_num_rows($res);
-        echo $user;
         if ($user >= 1) {
             $errors['all'] = 'Tên đăng nhập hoặc email đã tồn tại';
         } else {
@@ -65,8 +65,9 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 <?php include('templates/header.php'); ?>
 <div class="container">
+
     <form class="register" action="register.php" method="post">
-        <div> <?php echo $errors['all'] ?> </div>
+        <div class="text-primary"> <?php echo $errors['all'] ?> </div>
         <div class="form-group">
             <label for="exampleInputUsername">Username</label>
             <input type="text" value="<?php echo htmlspecialchars($userName) ?>" name="userName" class=" form-control" id="exampleInputPassword1" placeholder="Username">

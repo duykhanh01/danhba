@@ -41,8 +41,8 @@ $users = mysqli_fetch_all($res, MYSQLI_ASSOC);
                             <th scope="row"><?php echo $i + 1; ?></th>
                             <td><?php echo $user['tendangnhap']; ?></td>
                             <td><?php echo $user['email']; ?></td>
-                            <td><a class="text-primary" href="edituser.php?id=<?php echo $user['mand']; ?> "><i class="fas fa-edit "></i></a></td>
-                            <td><a class="text-danger" href="edituser.php?id=<?php echo $user['mand']; ?>"><i class="fas fa-trash"></i></a></td>
+                            <td><a class="text-primary" href="edituser.php?id=<?php echo $user['mand']; ?>"><i class="fas fa-edit "></i></a></td>
+                            <td><a class="text-danger" href="deleteUser.php?id=<?php echo $user['mand']; ?>"><i class="fas fa-trash"></i></a></td>
 
                         </tr>
                     <?php endforeach; ?>
