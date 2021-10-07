@@ -54,7 +54,7 @@
           </form>
           <?php if (isset($_SESSION['email'])) : ?>
             <div class="auth d-flex">
-              <p>Xin chào, <?php echo $_SESSION['email']; ?></p>
+              <p>Xin chào, <b><?php echo $_SESSION['name']; ?></b></p>
               <a class="px-1" href="logout.php">Logout</a>
             </div>
           <?php else : ?>

@@ -25,6 +25,8 @@ if (isset($_POST['submit-login'])) {
         } else {
             if (password_verify($password, $pass_saved)) {
                 $_SESSION['email'] = $user['email'];
+                $_SESSION['name'] = $user['last_name'] . ' ' . $user['first_name'];;
+
                 header('Location: admin.php');
             } else {
                 $errors['all'] = "Tên đăng nhập hoặc mật khẩu không chính xác";
