@@ -26,7 +26,7 @@ try {
     $mail->Subject = 'Xác thực tài khoản Danh bạ DHTL';
     $mail->Body    = '<p>Xin chào<b> ' . $firstName . ',</b></p>';
     $mail->Body .= '<p>Bạn đã đăng ký tài khoản thành công, để xác thực tài khoản, bạn vui lòng nhấp vào đường link dưới đây:</p>';
-    $mail->Body .= '<a href="http://localhost:3000/danhba/activation.php?accout=' . $email . '&code=' . $activationCode . '">Click here</a>';
+    $mail->Body .= '<a href="http://localhost:3000/danhba/function/activation.php?accout=' . $email . '&code=' . $activationCode . '">Click here</a>';
     $mail->AltBody = 'Body in plain text for non-HTML mail clients';
     $mail->send();
     echo "Mail has been sent successfully!";

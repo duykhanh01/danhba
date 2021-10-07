@@ -38,13 +38,17 @@
             <li class="nav-item">
               <a class="nav-link" href="#">About</a>
             </li>
-            <?php if (isset($_SESSION['email'])) : ?>
-              <li class="nav-item">
-                <a class="nav-link" href="admin.php">Admin</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="manager.php">Manager Users</a>
-              </li>
+            <?php if (isset($_SESSION['level'])) : ?>
+              <?php if ($_SESSION['level'] == 1 or $_SESSION['level'] == 2) : ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="admin.php">Admin</a>
+                </li>
+              <?php endif; ?>
+              <?php if ($_SESSION['level'] == 2) : ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="manager.php">Manager Users</a>
+                </li>
+              <?php endif; ?>
             <?php endif ?>
 
           </ul>

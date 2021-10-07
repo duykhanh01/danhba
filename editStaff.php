@@ -18,6 +18,7 @@ $phone = $staff['sodidong'];
 $selectunit = $staff['madv'];
 $email = $staff['email'];
 $posison = $staff['chucvu'];
+$image = $staff['image'];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($_POST['email'])) {
@@ -49,6 +50,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $phone = $_POST['phone'];
     }
+    if (empty($_FILES["image"])) {
+        $errors['img'] = 'img is not null';
+    } else {
+        $image = $_FILES["image"] ?? null;
+        $imagePath = '';
+        $strRandom = md5(rand(1000, 9999));
+        // echo "<pre>";
+        // print_r($image);
+        // exit;
+        // echo "</pre>";
+        if ($image) {
+            $imagePath = 'images/' . $strRandom . '/' . $image['name'];
+            mkdir(dirname($imagePath));
+            move_uploaded_file($image['tmp_name'], $imagePath);
+        }
+    }
 
     if (array_filter($errors)) {
     } else {
@@ -72,6 +89,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="container">
     <h2 class="text-center mt-2">Sửa thông tin nhân vien</h2>
     <form class="form-add" method="POST">
+        <div class="text-center mt-3">
+            <img src=" <?php echo $image ?> " class="rounded" alt="..." width="100px" height="100px">
+        </div>
+        <div class="form-group mt-2">
+            <label for="formFile" class="form-label">Tải ảnh lên</label>
+            <input class="form-control" type="file" name="image" id="formFile">
+        </div>
         <div class="form-group mt-2">
             <label for="exampleFormControlInput1">Tên nhân viên</label>
             <input name="name" type="text" value="<?php echo htmlspecialchars($name); ?>" class="form-control" id="exampleFormControlInput1">
