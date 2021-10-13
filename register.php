@@ -36,7 +36,7 @@ if (isset($_POST['submit-reg'])) {
             if ($result) {
                 // echo "<script> alert('Đăng ký thành công'); </script>";
                 header("Location: login.php?status=0");
-                include 'function/sendmail.php';
+                include 'core/sendmail.php';
             } else {
                 echo "Đăng ký thất bại";
             }

@@ -39,22 +39,6 @@ if (isset($_POST['submit_staff'])) {
     } else {
         $phone = $_POST['phone'];
     }
-    if (empty($_FILES["image"])) {
-        $errors['img'] = 'img is not null';
-    } else {
-        $image = $_FILES["image"] ?? null;
-        $imagePath = '';
-        $strRandom = md5(rand(1000, 9999));
-        // echo "<pre>";
-        // print_r($image);
-        // exit;
-        // echo "</pre>";
-        if ($image) {
-            $imagePath = 'images/' . $strRandom . '/' . $image['name'];
-            mkdir(dirname($imagePath));
-            move_uploaded_file($image['tmp_name'], $imagePath);
-        }
-    }
 
     if (array_filter($errors)) {
     } else {
@@ -75,9 +59,7 @@ if (isset($_POST['submit_staff'])) {
 <div class="container">
     <h2 class="text-center mt-2">Thêm Nhân Viên</h2>
     <form class="form-add" method="post" action="addStaff.php" enctype="multipart/form-data">
-        <div class="text-center mt-3">
-            <img src="..." class="rounded" alt="...">
-        </div>
+
         <div class="form-group mt-2">
             <label for="exampleFormControlInput1">Tên nhân viên</label>
             <input name="name" type="text" value="<?php echo htmlspecialchars($name); ?>" class="form-control" id="exampleFormControlInput1">
@@ -109,13 +91,11 @@ if (isset($_POST['submit_staff'])) {
 
         <div class="form-group mt-2">
             <label for="exampleFormControlInput1">Email</label>
-            <input name="email" value="<?php echo htmlspecialchars($email); ?> " type="email" class="form-control" id="exampleFormControlInput1" placeholder="email">
+            <input name="email" value="<?php echo htmlspecialchars($email); ?> " type="email" class="form-control" id="exampleFormControlInput1"">
         </div>
-        <div class="mb-3">
-            <label for="formFile" class="form-label">Upload your image</label>
-            <input class="form-control" type="file" name="image" id="formFile">
+
+        <div class=" text-center text-primary"> <?php echo $errors['img'] ?>
         </div>
-        <div class="text-center text-primary"> <?php echo $errors['img'] ?> </div>
         <div class="text-primary"> <?php echo $errors['email'] ?></div>
         <div class="text-center mt-4">
             <button name="submit_staff" type="submit" class="btn btn-primary"> Submit </button>

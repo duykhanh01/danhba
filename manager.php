@@ -23,10 +23,14 @@ $users = mysqli_fetch_all($res, MYSQLI_ASSOC);
 <div class="container">
     <div class="row">
         <div class="col-xl-12 col-md-6">
+
             <a href="register.php" class="btn btn-success my-3">Thêm người dùng</a>
+            <form method="post" action="" class="d-flex me-auto mb-3">
+                <input id="search_users" class="form-control me-2" type="search" placeholder="Tìm kiếm theo tên, email hoặc level" aria-label="Search">
+            </form>
             <div class="table-responsive">
 
-                <table class="table table-bordered m-0">
+                <table id="table_users" class="table table-bordered m-0">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">STT</th>
@@ -35,7 +39,7 @@ $users = mysqli_fetch_all($res, MYSQLI_ASSOC);
                             <th scope="col">Registration Date</th>
                             <th scope="col">Status</th>
                             <th scope="col">Level</th>
-                            <th scope="col">Change Password</th>
+                            <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
 
                         </tr>
@@ -66,7 +70,7 @@ $users = mysqli_fetch_all($res, MYSQLI_ASSOC);
                                 ?>
                                 <td><?php echo $status; ?></td>
 
-                                <td><a class="text-primary" href="edituser.php?id=<?php echo $user['userid']; ?>"><i class="fas fa-edit "></i></a></td>
+                                <td><a class="text-primary" href="user.php?id=<?php echo $user['userid']; ?>"><i class="fas fa-edit "></i></a></td>
 
                                 <td><a class="text-danger" href="deleteUser.php?id=<?php echo $user['userid']; ?>"><i class="fas fa-trash"></i></a></td>
 

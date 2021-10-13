@@ -61,27 +61,30 @@ if (isset($_GET['filter_staffs'])) {
                             <span><i class="far fa-folder-open ic-w mx-1"></i> Danh bạ đơn vị</span>
                         </a>
                         <ul class="nested">
-                            <li>
-                                <a href="admin.php?name=<?php echo "don-vi" ?>">
-
+                            <a href="admin.php?name=<?php echo "don-vi" ?>">
+                                <li>
                                     <div class=" treeview-animated-element "><i class=" far fa-folder-open ic-w mx-1"></i>Tất cả đơn vị
-                                </a>
-                            </li>
-                            <li>
-                                <a href="admin.php?filter_dv=<?php echo "Khoa" ?>">
+                                </li>
+                            </a>
+
+                            <a href="admin.php?filter_dv=<?php echo "Khoa" ?>">
+                                <li>
+
                                     <div class=" treeview-animated-element "><i class=" far fa-folder-open ic-w mx-1"></i>Khoa
-                                </a>
-                            </li>
-                            <li>
-                                <a href="admin.php?filter_dv=<?php echo "Bộ môn" ?>">
+                                </li>
+                            </a>
+                            <a href="admin.php?filter_dv=<?php echo "Bộ môn" ?>">
+                                <li>
+
                                     <div class="treeview-animated-element "><i class="far fa-folder-open ic-w mx-1"></i>Bộ môn
-                                </a>
-                            </li>
-                            <li>
-                                <a href="admin.php?filter_dv=<?php echo "Phòng ban" ?>">
+                                </li>
+
+                            </a>
+                            <a href="admin.php?filter_dv=<?php echo "Phòng ban" ?>">
+                                <li>
                                     <div class="treeview-animated-element "><i class="far fa-folder-open ic-w mx-1"></i>Phòng Ban
-                                </a>
-                            </li>
+                                </li>
+                            </a>
 
                         </ul>
                     </li>
@@ -91,17 +94,17 @@ if (isset($_GET['filter_staffs'])) {
                             <span> <i class="far fa-folder-open ic-w mx-1"></i>Danh bạ người dùng</span>
                         </a>
                         <ul class="nested">
-                            <li>
-                                <a href="admin.php?name=<?php echo "nguoi-dung" ?>">
-                                    <div class=" treeview-animated-element "><i class=" far fa-folder-open ic-w mx-1"></i>Tất cả người dùng
-                                </a>
-                            </li>
-                            <?php foreach ($unitsList as $unitList) : ?>
+                            <a href="admin.php?name=<?php echo "nguoi-dung" ?>">
                                 <li>
-                                    <a href="admin.php?filter_staffs=<?php echo $unitList['tendv'] ?> ">
-                                        <div class="treeview-animated-element "><i class="far fa-folder-open ic-w mx-1"></i><?php echo $unitList['tendv'] ?>
-                                    </a>
+                                    <div class=" treeview-animated-element "><i class=" far fa-folder-open ic-w mx-1"></i>Tất cả người dùng
                                 </li>
+                            </a>
+                            <?php foreach ($unitsList as $unitList) : ?>
+                                <a href="admin.php?filter_staffs=<?php echo $unitList['tendv'] ?> ">
+                                    <li>
+                                        <div class="treeview-animated-element "><i class="far fa-folder-open ic-w mx-1"></i><?php echo $unitList['tendv'] ?>
+                                    </li>
+                                </a>
                             <?php endforeach; ?>
                         </ul>
                     </li>

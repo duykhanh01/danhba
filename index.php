@@ -57,27 +57,30 @@ if (isset($_GET['filter_staffs'])) {
 							<span><i class="far fa-folder-open ic-w mx-1"></i> Danh bạ đơn vị</span>
 						</a>
 						<ul class="nested">
-							<li>
-								<a href="index.php?name=<?php echo "don-vi" ?>">
-
+							<a href="index.php?name=<?php echo "don-vi" ?>">
+								<li>
 									<div class=" treeview-animated-element "><i class=" far fa-folder-open ic-w mx-1"></i>Tất cả đơn vị
-								</a>
-							</li>
-							<li>
-								<a href="index.php?filter_dv=<?php echo "Khoa" ?>">
+								</li>
+							</a>
+
+							<a href="index.php?filter_dv=<?php echo "Khoa" ?>">
+								<li>
+
 									<div class=" treeview-animated-element "><i class=" far fa-folder-open ic-w mx-1"></i>Khoa
-								</a>
-							</li>
-							<li>
-								<a href="index.php?filter_dv=<?php echo "Bộ môn" ?>">
+								</li>
+							</a>
+							<a href="index.php?filter_dv=<?php echo "Bộ môn" ?>">
+								<li>
+
 									<div class="treeview-animated-element "><i class="far fa-folder-open ic-w mx-1"></i>Bộ môn
-								</a>
-							</li>
-							<li>
-								<a href="index.php?filter_dv=<?php echo "Phòng ban" ?>">
+								</li>
+
+							</a>
+							<a href="index.php?filter_dv=<?php echo "Phòng ban" ?>">
+								<li>
 									<div class="treeview-animated-element "><i class="far fa-folder-open ic-w mx-1"></i>Phòng Ban
-								</a>
-							</li>
+								</li>
+							</a>
 
 						</ul>
 					</li>
@@ -87,31 +90,33 @@ if (isset($_GET['filter_staffs'])) {
 							<span> <i class="far fa-folder-open ic-w mx-1"></i>Danh bạ người dùng</span>
 						</a>
 						<ul class="nested">
-							<li>
-								<a href="index.php?name=<?php echo "nguoi-dung" ?>">
-									<div class=" treeview-animated-element "><i class=" far fa-folder-open ic-w mx-1"></i>Tất cả người dùng
-								</a>
-							</li>
-							<?php foreach ($unitsList as $unitList) : ?>
+							<a href="index.php?name=<?php echo "nguoi-dung" ?>">
 								<li>
-									<a href="index.php?filter_staffs=<?php echo $unitList['tendv'] ?> ">
-										<div class="treeview-animated-element "><i class="far fa-folder-open ic-w mx-1"></i><?php echo $unitList['tendv'] ?>
-									</a>
+									<div class=" treeview-animated-element "><i class=" far fa-folder-open ic-w mx-1"></i>Tất cả người dùng
 								</li>
+							</a>
+							<?php foreach ($unitsList as $unitList) : ?>
+								<a href="index.php?filter_staffs=<?php echo $unitList['tendv'] ?> ">
+									<li>
+										<div class="treeview-animated-element "><i class="far fa-folder-open ic-w mx-1"></i><?php echo $unitList['tendv'] ?>
+									</li>
+								</a>
 							<?php endforeach; ?>
 						</ul>
 					</li>
 				</ul>
 			</div>
 		</div>
-		<div class="col-xl-9 col-md-12  bg-body shadow-sm rounded">
+		<div class="col-xl-9 col-md-12 bg-body shadow-sm rounded">
 			<!-- Hiển thị bảng đơn vị nếu không chọn hiển thị gì -->
 			<?php if (isset($_GET['name']) or isset($_GET['filter_staffs'])) : ?>
 
-				<!--  --------------------Hiển thị bảng theo người dùng------------------------------ -->
-
+				<!--  Hiển thị bảng theo người  -->
 				<?php if (isset($_GET['filter_staffs']) or $_GET['name'] == "nguoi-dung") : ?>
-					<div class="table-responsive-md">
+
+
+					<div class="table-responsive">
+
 						<table class="table table-striped table-hover mt-3 mb-0">
 							<thead>
 								<tr>
@@ -121,6 +126,7 @@ if (isset($_GET['filter_staffs'])) {
 									<th scope="col">Chức vụ</th>
 									<th scope="col">SĐT</th>
 									<th scope="col">Email</th>
+
 
 
 								</tr>
@@ -136,6 +142,7 @@ if (isset($_GET['filter_staffs'])) {
 										<td><?php echo $phoneBook['sodidong']; ?></td>
 										<td><?php echo $phoneBook['email']; ?></td>
 
+
 									</tr>
 								<?php endforeach; ?>
 
@@ -145,7 +152,7 @@ if (isset($_GET['filter_staffs'])) {
 
 					<!-- Hiển thị bảng đơn vị -->
 				<?php elseif ($_GET['name'] === "don-vi") : ?>
-					<div class="table-responsive-md">
+					<div class="table-responsive">
 
 						<table class="table table-striped table-hover mt-3 mb-0">
 							<thead>
@@ -168,18 +175,21 @@ if (isset($_GET['filter_staffs'])) {
 										<td><?php echo $phoneBook['email']; ?></td>
 										<td><?php echo $phoneBook['dienthoai']; ?></td>
 
+
+
 									</tr>
 								<?php endforeach; ?>
 
 							</tbody>
 						</table>
 					</div>
+
 				<?php else : header("Location: index.php"); ?>
 				<?php endif; ?>
 
 				<!-- ---------------------------------- -->
 			<?php else : ?>
-				<div class="table-responsive-md">
+				<div class="table-responsive">
 
 					<table class="table table-striped table-hover mt-3 mb-0">
 						<thead>
@@ -189,6 +199,7 @@ if (isset($_GET['filter_staffs'])) {
 								<th scope="col">Địa chỉ</th>
 								<th scope="col">Email</th>
 								<th scope="col">SĐT</th>
+
 							</tr>
 						</thead>
 						<tbody>
@@ -202,13 +213,13 @@ if (isset($_GET['filter_staffs'])) {
 									<td><?php echo $unit['dienthoai']; ?></td>
 
 
-
 								</tr>
 							<?php endforeach; ?>
 
 						</tbody>
 					</table>
 				</div>
+
 			<?php endif; ?>
 
 

@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // exit;
         // echo "</pre>";
         if ($image) {
-            $imagePath = 'images/' . $strRandom . '/' . $image['name'];
+            $imagePath = 'core' / 'images/' . $strRandom . '/' . $image['name'];
             mkdir(dirname($imagePath));
             move_uploaded_file($image['tmp_name'], $imagePath);
         }
