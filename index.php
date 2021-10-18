@@ -116,6 +116,7 @@ if (isset($_GET['filter_staffs'])) {
 
 
 					<div class="table-responsive">
+						<a href="core/export-staffs.php" type="button" class="btn btn-outline-success mt-3">Export</a>
 
 						<table class="table table-striped table-hover mt-3 mb-0">
 							<thead>
@@ -153,6 +154,7 @@ if (isset($_GET['filter_staffs'])) {
 					<!-- Hiển thị bảng đơn vị -->
 				<?php elseif ($_GET['name'] === "don-vi") : ?>
 					<div class="table-responsive">
+						<a href="core/export-units.php" type="button" class="btn btn-outline-success mt-3">Export</a>
 
 						<table class="table table-striped table-hover mt-3 mb-0">
 							<thead>
@@ -191,6 +193,7 @@ if (isset($_GET['filter_staffs'])) {
 			<?php else : ?>
 				<div class="table-responsive">
 
+					<a href="core/export-units.php" type="button" class="btn btn-outline-success mt-3">Export</a>
 					<table class="table table-striped table-hover mt-3 mb-0">
 						<thead>
 							<tr>

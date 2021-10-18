@@ -2,6 +2,8 @@
 
 include('config/db_connect.php');
 session_start();
+if (isset($_SESSION['email'])) header("Location: index.php");
+
 $firstName = $lastName = $pass = $cpass = $email =  '';
 $errors = array('cpass' => '', 'all' => '');
 

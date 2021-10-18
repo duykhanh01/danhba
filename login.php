@@ -7,6 +7,7 @@ session_start();
 $email = $password  = null;
 $errors = array('all' => '');
 $noti = "";
+if (isset($_SESSION['email'])) header("Location: index.php");
 if (isset($_GET['status']))  $noti = $_GET['status'] == 0 ? "Đăng ký thành công, vui lòng kiểm tra email để kích hoạt tài khoản" : "Kích hoạt tài khoản thành công";
 if (isset($_POST['submit-login'])) {
 
@@ -18,18 +19,18 @@ if (isset($_POST['submit-login'])) {
     $row = mysqli_num_rows($res);
 
     if ($row > 0) {
-        $user = mysqli_fetch_assoc($res);
-        $pass_saved = $user['password'];
-        if ($user['status'] == 0) {
+        $user_logged = mysqli_fetch_assoc($res);
+        $pass_saved = $user_logged['password'];
+        if ($user_logged['status'] == 0) {
             $errors['all'] = "Tài khoản chưa được kích hoạt";
         } else {
             if (password_verify($password, $pass_saved)) {
 
-                $_SESSION['email'] = $user['email'];
-                $_SESSION['name'] = $user['last_name'] . ' ' . $user['first_name'];
-                $_SESSION['level'] = $user['user_level'];
-                $_SESSION['id'] = $user['userid'];
-                $_SESSION['image'] = $user['image'];
+                $_SESSION['email'] = $user_logged['email'];
+                $_SESSION['name'] = $user_logged['last_name'] . ' ' . $user_logged['first_name'];
+                $_SESSION['level'] = $user_logged['user_level'];
+                $_SESSION['id'] = $user_logged['userid'];
+                $_SESSION['user_image'] = $user_logged['image'];
                 header('Location: admin.php');
             } else {
                 $errors['all'] = "Tên đăng nhập hoặc mật khẩu không chính xác";

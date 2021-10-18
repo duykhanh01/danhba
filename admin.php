@@ -3,7 +3,7 @@
 
 
 session_start();
-if ($_SESSION['level'] == 0) {
+if ($_SESSION['level'] == 0 and !isset($_SESSION['id'])) {
     header("Location: index.php");
 }
 
@@ -51,6 +51,7 @@ if (isset($_GET['filter_staffs'])) {
 <?php include('templates/header.php'); ?>
 
 <div class="container">
+
     <div class="row">
         <div class="col-xl-3 col-md-12  bg-light">
             <div class="treeview-animated mr-4 my-4">
@@ -112,14 +113,66 @@ if (isset($_GET['filter_staffs'])) {
             </div>
         </div>
         <div class="col-xl-9 col-md-12 bg-body shadow-sm rounded">
+            <?php if (isset($_GET['errors'])) : ?>
+                <?php $noti = $_GET['errors'] == 0 ? "Vui lòng upload file .xlsx hoặc .csv" : "Vui lòng chọn file"  ?>
+                <div class="alert alert-danger mt-2 text-center" role="alert">
+                    <?php echo $noti; ?>
+                </div>
+            <?php endif; ?>
             <!-- Hiển thị bảng đơn vị nếu không chọn hiển thị gì -->
             <?php if (isset($_GET['name']) or isset($_GET['filter_staffs'])) : ?>
 
                 <!--  Hiển thị bảng theo người  -->
                 <?php if (isset($_GET['filter_staffs']) or $_GET['name'] == "nguoi-dung") : ?>
 
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="addStaff.php" class="btn btn-success ">Thêm danh bạ người dùng</a>
+                        <div>
+                            <a href="#" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Import</a>
+                            <a href="core/export-staffs.php" type="button" class="btn btn-outline-success">Export</a>
+                            <!-- Button trigger modal -->
 
-                    <a href="addStaff.php" class="btn btn-success mt-2">Thêm danh bạ người dùng</a>
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Tải file lên</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <form method="post" action="core/import-staffs.php" enctype="multipart/form-data">
+                                                    <label for="formFile" class="form-label">Chọn file</label>
+                                                    <input id="input-staffs" class="form-control" name="file-staffs" type="file" id="formFile">
+                                                    <div class="table-responsive staffs-preview">
+                                                        <div id="preview-staff-fail" class="alert alert-danger d-none mt-2" role="alert">
+
+                                                        </div>
+                                                        <table id="staffs-preview" class='table table-hover mt-3 mb-0'>
+
+                                                        </table>
+                                                    </div>
+                                                    <div class="mt-3 text-center">
+                                                        <button type="submit" name="import-staffs" class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+                        </div>
+                    </div>
+                    <!-- Button trigger modal -->
+
                     <div class="table-responsive">
 
                         <table class="table table-striped table-hover mt-3 mb-0">
@@ -156,90 +209,170 @@ if (isset($_GET['filter_staffs'])) {
                             </tbody>
                         </table>
                     </div>
+        </div>
 
-                    <!-- Hiển thị bảng đơn vị -->
-                <?php elseif ($_GET['name'] === "don-vi") : ?>
-                    <a href="addUnit.php" class="btn btn-success mt-2">Thêm danh bạ đơn vị</a>
-                    <div class="table-responsive">
+        <!-- Hiển thị bảng đơn vị -->
+    <?php elseif ($_GET['name'] === "don-vi") : ?>
+        <div class="d-flex justify-content-between mt-3">
+            <a href="addUnit.php" class="btn btn-success ">Thêm danh bạ đơn vị</a>
 
-                        <table class="table table-striped table-hover mt-3 mb-0">
-                            <thead>
-                                <tr>
-                                    <th scope="col">STT</th>
-                                    <th scope="col">Tên đơn vị</th>
-                                    <th scope="col">Địa chỉ</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">SĐT</th>
-                                    <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                <?php foreach ($phoneBooks as $i => $phoneBook) : ?>
-                                    <tr>
-                                        <th scope="row"><?php echo $i + 1 ?></th>
-                                        <td><?php echo $phoneBook['tendv']; ?></td>
-                                        <td><?php echo $phoneBook['diachi']; ?></td>
-                                        <td><?php echo $phoneBook['email']; ?></td>
-                                        <td><?php echo $phoneBook['dienthoai']; ?></td>
-                                        <td><a class="text-primary" href="editUnit.php?id=<?php echo $phoneBook['madv']; ?>"><i class="fas fa-edit "></i></a></td>
-                                        <td><a class="text-danger" href="deleteUnit.php?id=<?php echo $phoneBook['madv']; ?>"><i class="fas fa-trash"></i></a></td>
+            <div>
+                <a href="#" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalUnits">Import</a>
+                <a href="core/export-units.php" type="button" class="btn btn-outline-success">Export</a>
+                <!-- Button trigger modal -->
 
 
-                                    </tr>
-                                <?php endforeach; ?>
 
-                            </tbody>
-                        </table>
+                <!-- Modal -->
+                <div class="modal fade" id="modalUnits" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Tải file lên</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <form method="post" action="core/import-units.php" enctype="multipart/form-data">
+
+                                        <label for="formFile" class="form-label">Chọn file</label>
+                                        <input class="form-control" name="file-units" type="file" id="formFile">
+                                        <div class="mt-3 text-center">
+
+                                            <button type="submit" name="import-units" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
                     </div>
-
-                <?php else : header("Location: index.php"); ?>
-                <?php endif; ?>
-
-                <!-- ---------------------------------- -->
-            <?php else : ?>
-                <a href="addUnit.php" class="btn btn-success mt-2">Thêm danh bạ đơn vị</a>
-                <div class="table-responsive">
-
-                    <table class="table table-striped table-hover mt-3 mb-0">
-                        <thead>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Tên đơn vị</th>
-                                <th scope="col">Địa chỉ</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">SĐT</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <?php foreach ($units as $i => $unit) : ?>
-                                <tr>
-                                    <th scope="row"><?php echo $i + 1 ?></th>
-                                    <td><?php echo $unit['tendv']; ?></td>
-                                    <td><?php echo $unit['diachi']; ?></td>
-                                    <td><?php echo $unit['email']; ?></td>
-                                    <td><?php echo $unit['dienthoai']; ?></td>
-                                    <td><a class="text-primary" href="editUnit.php?id=<?php echo $unit['madv']; ?>"><i class="fas fa-edit "></i></a></td>
-                                    <td><a class="text-danger" href="deleteUnit.php?id=<?php echo $unit['madv']; ?>"><i class="fas fa-trash"></i></a></td>
-
-                                </tr>
-                            <?php endforeach; ?>
-
-                        </tbody>
-                    </table>
                 </div>
 
-            <?php endif; ?>
+                <!-- Modal -->
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mt-3 mb-0">
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên đơn vị</th>
+                        <th scope="col">Địa chỉ</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">SĐT</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <?php foreach ($phoneBooks as $i => $phoneBook) : ?>
+                        <tr>
+                            <th scope="row"><?php echo $i + 1 ?></th>
+                            <td><?php echo $phoneBook['tendv']; ?></td>
+                            <td><?php echo $phoneBook['diachi']; ?></td>
+                            <td><?php echo $phoneBook['email']; ?></td>
+                            <td><?php echo $phoneBook['dienthoai']; ?></td>
+                            <td><a class="text-primary" href="editUnit.php?id=<?php echo $phoneBook['madv']; ?>"><i class="fas fa-edit "></i></a></td>
+                            <td><a class="text-danger" href="deleteUnit.php?id=<?php echo $phoneBook['madv']; ?>"><i class="fas fa-trash"></i></a></td>
+
+
+                        </tr>
+                    <?php endforeach; ?>
+
+                </tbody>
+            </table>
+        </div>
+
+    <?php else : header("Location: index.php"); ?>
+    <?php endif; ?>
+
+    <!-- ---------------------------------- -->
+<?php else : ?>
+    <div class="d-flex justify-content-between mt-3">
+        <a href="addUnit.php" class="btn btn-success">Thêm danh bạ đơn vị</a>
+
+        <div>
+            <a href="#" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalUnits">Import</a>
+            <a href="core/export-units.php" type="button" class="btn btn-outline-success">Export</a>
+            <!-- Button trigger modal -->
 
 
 
+            <!-- Modal -->
+            <div class="modal fade" id="modalUnits" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tải file lên</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <form method="post" action="core/import-units.php" enctype="multipart/form-data">
 
+                                    <label for="formFile" class="form-label">Chọn file</label>
+                                    <input class="form-control" name="file-units" type="file" id="formFile">
+                                    <div class="mt-3 text-center">
+
+                                        <button type="submit" name="import-units" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
         </div>
     </div>
+    <div class="table-responsive">
+
+        <table class="table table-striped table-hover mt-3 mb-0">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên đơn vị</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">SĐT</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <?php foreach ($units as $i => $unit) : ?>
+                    <tr>
+                        <th scope="row"><?php echo $i + 1 ?></th>
+                        <td><?php echo $unit['tendv']; ?></td>
+                        <td><?php echo $unit['diachi']; ?></td>
+                        <td><?php echo $unit['email']; ?></td>
+                        <td><?php echo $unit['dienthoai']; ?></td>
+                        <td><a class="text-primary" href="editUnit.php?id=<?php echo $unit['madv']; ?>"><i class="fas fa-edit "></i></a></td>
+                        <td><a class="text-danger" href="deleteUnit.php?id=<?php echo $unit['madv']; ?>"><i class="fas fa-trash"></i></a></td>
+
+                    </tr>
+                <?php endforeach; ?>
+
+            </tbody>
+        </table>
+    </div>
+
+<?php endif; ?>
+
+
+
+
+    </div>
+</div>
 
 
 

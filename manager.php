@@ -1,13 +1,15 @@
 <?php
 
 session_start();
-include('config/db_connect.php');
+if (isset($_SESSION['id']) and $_SESSION['level'] == 2) {
+    include('config/db_connect.php');
 
-$sql = 'SELECT * from users';
-$res = mysqli_query($conn, $sql);
-$users = mysqli_fetch_all($res, MYSQLI_ASSOC);
-
-
+    $sql = 'SELECT * from users';
+    $res = mysqli_query($conn, $sql);
+    $users = mysqli_fetch_all($res, MYSQLI_ASSOC);
+} else {
+    header("Location: index.php");
+}
 // Edit user
 
 
@@ -26,7 +28,7 @@ $users = mysqli_fetch_all($res, MYSQLI_ASSOC);
 
             <a href="register.php" class="btn btn-success my-3">Thêm người dùng</a>
             <form method="post" action="" class="d-flex me-auto mb-3">
-                <input id="search_users" class="form-control me-2" type="search" placeholder="Tìm kiếm theo tên, email hoặc level" aria-label="Search">
+                <input id="search_users" class="form-control me-2" type="search" placeholder="Tìm kiếm theo tên hoặc email" aria-label="Search">
             </form>
             <div class="table-responsive">
 
@@ -71,9 +73,11 @@ $users = mysqli_fetch_all($res, MYSQLI_ASSOC);
                                 <td><?php echo $status; ?></td>
 
                                 <td><a class="text-primary" href="user.php?id=<?php echo $user['userid']; ?>"><i class="fas fa-edit "></i></a></td>
-
-                                <td><a class="text-danger" href="deleteUser.php?id=<?php echo $user['userid']; ?>"><i class="fas fa-trash"></i></a></td>
-
+                                <?php if ($_SESSION['id'] == $user['userid']) : ?>
+                                    <td><a class="text-muted"><i class="fas fa-trash"></i></a></td>
+                                <?php else : ?>
+                                    <td><a class="text-danger" href="deleteUser.php?id=<?php echo $user['userid']; ?>"><i class="fas fa-trash"></i></a></td>
+                                <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

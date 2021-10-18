@@ -4,9 +4,9 @@ include('config/db_connect.php');
 $errors = [];
 $success = [];
 if (!isset($_SESSION['email']) or !isset($_GET['id'])) header('Location:index.php');
-
 $id = $_GET['id'] ?? null;
 $level =  $_SESSION['level'];
+
 if (($id == $_SESSION['id']) or ($level == 2)) {
 
     $query = "SELECT * from users where userid = '$id'";
@@ -14,14 +14,17 @@ if (($id == $_SESSION['id']) or ($level == 2)) {
     $user = mysqli_fetch_assoc($result);
     $email = $user['email'];
     $userid = $user['userid'];
-
+    if ($userid == $_SESSION['id']) {
+        $_SESSION['name'] = $user['last_name'] . ' ' . $user['first_name'];
+        $_SESSION['user_image'] = $user['image'];
+    }
     // Đổi mật khẩu
 
     if (isset($_POST['change-pass'])) {
 
         $sql = "SELECT * FROM users where email = '$email'";
         $res = mysqli_query($conn, $sql);
-        $pass = $user['user_level'] != 2 ? $_POST['password'] : null;
+        $pass = $level != 2 ? $_POST['password'] : null;
         $newpass = $_POST['newpassword'];
         $cpass = $_POST['cpassword'];
         $pass_saved = $user['password'];
@@ -177,9 +180,9 @@ if (($id == $_SESSION['id']) or ($level == 2)) {
                                                                 <label for="exampleFormControlSelect1" class="text-muted mb-1">Vai trò</label>
                                                                 <select name="selectLevel" class="form-select" id="exampleFormControlSelect1">
 
-                                                                    <option <?php if ($level == 0) echo 'selected'; ?> value="0">Người dùng</option>
-                                                                    <option <?php if ($level == 1) echo 'selected'; ?> value="1">Admin</option>
-                                                                    <option <?php if ($level == 2) echo 'selected'; ?> value="2">Manager</option>
+                                                                    <option <?php if ($user['user_level'] == 0) echo 'selected'; ?> value="0">Người dùng</option>
+                                                                    <option <?php if ($user['user_level'] == 1) echo 'selected'; ?> value="1">Admin</option>
+                                                                    <option <?php if ($user['user_level'] == 2) echo 'selected'; ?> value="2">Manager</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -257,7 +260,7 @@ if (($id == $_SESSION['id']) or ($level == 2)) {
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">

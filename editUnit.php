@@ -4,6 +4,7 @@ session_start();
 include('config/db_connect.php');
 $errors = array('name' => '', 'unit' => '', 'location' => '', 'phone' => '', 'email' => '', 'website' => '');
 $id = $_GET['id'] ?? null;
+if ($_SESSION['level'] == 0) header('Location: admin.php');
 
 $query = "SELECT * FROM db_donvi where madv = '$id'";
 $res = mysqli_query($conn, $query);

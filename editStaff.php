@@ -10,6 +10,7 @@ $units = mysqli_fetch_all($res, MYSQLI_ASSOC);
 
 $id = $_GET['id'] ?? null;
 if (!$id) header('Location: admin.php');
+if ($_SESSION['level'] == 0) header('Location: admin.php');
 $sql = "SELECT * FROM db_nhanvien where manv = '$id'";
 $result = mysqli_query($conn, $sql);
 $staff = mysqli_fetch_assoc($result);
